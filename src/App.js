@@ -120,6 +120,29 @@ class CreateComment extends React.Component {
     }
 }
 
+// class CommentsSection extends React.Component {
+//     static propTypes = {
+//         comments: PropTypes.arrayOf(PropTypes.object)
+//     }
+//     render() {
+//         return <div className="comments-section">
+//             {this.props.comments.map((comment) => (
+//                 <Comment key={comment.id} {...comment} />
+//             ))}
+//         </div>
+//     }
+// }
+
+function CommentsSection(comments) {
+    return (
+        <div className="comments-section">
+            {Array.prototype.map.call(comments, (comment) => (
+                <Comment key={comment.id} {...comment} />
+            ))}
+        </div>
+    )
+}
+
 class CommentBox extends React.Component {
     static propTypes = {
         post: PropTypes.object,
@@ -147,11 +170,7 @@ class CommentBox extends React.Component {
         return (
             <div className="comment-box">
                 <Post {...this.props.post} />
-                <div className="comments-section">
-                    {this.state.comments.map((comment) => (
-                        <Comment key={comment.id} {...comment} />
-                    ))}
-                </div>
+                <CommentsSection comments={this.state.comments} />
                 <CreateComment onCommentSubmit={this.handleCommentSubmit} />
             </div>
         );
